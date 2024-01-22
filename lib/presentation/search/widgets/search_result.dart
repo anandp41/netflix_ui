@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix/application/search/search_bloc.dart';
 import 'package:netflix/core/constants.dart';
 import 'package:netflix/presentation/widgets/main_title.dart';
-
-const imageUrl =
-    "https://media.themoviedb.org/t/p/w220_and_h330_face/2e853FDVSIso600RqAMunPxiZjq.jpg";
 
 class SearchResultWidget extends StatelessWidget {
   const SearchResultWidget({super.key});
@@ -15,14 +14,22 @@ class SearchResultWidget extends StatelessWidget {
       children: [
         const MainTitle(title: 'Movies & TV'),
         kHeight,
-        Expanded(
-            child: GridView.count(
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          crossAxisCount: 3,
-          shrinkWrap: true,
-          childAspectRatio: 1 / 1.4,
-          children: List.generate(20, (index) => const MainCard()),
+        Expanded(child: BlocBuilder<SearchBloc, SearchState>(
+          builder: (context, state) {
+            return GridView.count(
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              crossAxisCount: 3,
+              shrinkWrap: true,
+              childAspectRatio: 1 / 1.4,
+              children: List.generate(20, (index) {
+                final movie = state.searchResultList[index];
+                return MainCard(
+                  imageUrl: movie.posterImageUrl,
+                );
+              }),
+            );
+          },
         ))
       ],
     );
@@ -30,14 +37,15 @@ class SearchResultWidget extends StatelessWidget {
 }
 
 class MainCard extends StatelessWidget {
-  const MainCard({super.key});
+  final String imageUrl;
+  const MainCard({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
           borderRadius: kBorderRadiusCircular10,
-          image: const DecorationImage(
+          image: DecorationImage(
               image: NetworkImage(imageUrl), fit: BoxFit.cover)),
     );
   }

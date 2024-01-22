@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:netflix/core/colors/colors.dart';
+import 'package:netflix/core/colors.dart';
 import 'package:netflix/core/constants.dart';
 import 'package:netflix/presentation/home/widgets/home_banner_side_button.dart';
 import 'package:netflix/presentation/new_and_hot/widgets/video_widget.dart';
 
 class ComingSoonWidget extends StatelessWidget {
+  final String id;
+  final String month;
+  final String day;
+  final String posterPath;
+  final String movieName;
+  final String description;
   const ComingSoonWidget({
     super.key,
+    required this.id,
+    required this.month,
+    required this.day,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
   });
 
   @override
@@ -15,21 +27,21 @@ class ComingSoonWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
+        SizedBox(
           width: 50,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                "FEB",
-                style: TextStyle(
+                month,
+                style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: kGreyColor),
               ),
               Text(
-                "11",
-                style: TextStyle(
+                day,
+                style: const TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: kWhiteColor),
@@ -39,22 +51,26 @@ class ComingSoonWidget extends StatelessWidget {
         ),
         SizedBox(
           width: size.width - 50,
-          height: 400,
-          child: const Column(
+          height: 420,
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              VideoWidget(),
+              VideoWidget(url: posterPath),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'TALL GIRL 2',
-                    style: TextStyle(
-                        letterSpacing: -2,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Text(
+                      movieName,
+                      maxLines: 1,
+                      style: const TextStyle(
+                          letterSpacing: -2,
+                          fontSize: 28,
+                          overflow: TextOverflow.ellipsis,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  Row(
+                  const Row(
                     children: [
                       HomeBannerSideButton(
                         icon: Icons.notifications_none_outlined,
@@ -76,17 +92,22 @@ class ComingSoonWidget extends StatelessWidget {
                   )
                 ],
               ),
-              Text("Coming on Friday"),
+              Text("Coming on $day $month"),
               kHeight,
               Text(
-                "Tall Girl 2",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                movieName,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               kHeight,
-              Text(
-                "Landing the lead in the school musical is a dream come true for Jodi, until the pressure sends her confidence - and her relationship - into a tailspin.",
-                style: TextStyle(
-                  color: kGreyColor,
+              Expanded(
+                child: Text(
+                  description,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 4,
+                  style: const TextStyle(
+                    color: kGreyColor,
+                  ),
                 ),
               )
             ],

@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:netflix/core/colors/colors.dart';
+import 'package:netflix/core/colors.dart';
 import 'package:netflix/core/constants.dart';
 import 'package:netflix/presentation/home/widgets/home_banner_side_button.dart';
 import 'package:netflix/presentation/new_and_hot/widgets/video_widget.dart';
 
 class EveryonesWatchingWidget extends StatelessWidget {
+  final String posterPath;
+  final String movieName;
+  final String description;
   const EveryonesWatchingWidget({
     super.key,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
   });
 
   @override
@@ -26,7 +32,7 @@ class EveryonesWatchingWidget extends StatelessWidget {
           style: TextStyle(color: kGreyColor),
         ),
         kHeight50,
-        VideoWidget(),
+        VideoWidget(url: newAndHotTempImage),
         kHeight,
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

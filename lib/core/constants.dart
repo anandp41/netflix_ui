@@ -28,3 +28,5 @@ const newAndHotTempImage =
     "https://media.themoviedb.org/t/p/w355_and_h200_multi_faces/8OOJCxQ7X5gi3woRordfr8uDlp.jpg";
 const newAndHotTempImage2 =
     "https://media.themoviedb.org/t/p/w250_and_h141_face/8wfPjfUgmGpqCIW6gS0pS0pixnA.jpg";
+
+const imageAppendUrl = "https://image.tmdb.org/t/p/w780";
